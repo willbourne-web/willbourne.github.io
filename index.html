@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Will Bourne — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f7f7f6;
+      --bg-tertiary: #f0efed;
+      --text: #1a1a18;
+      --text-secondary: #5a5a56;
+      --text-tertiary: #9a9994;
+      --border: rgba(0,0,0,0.1);
+      --border-strong: rgba(0,0,0,0.18);
+      --accent: #185FA5;
+      --accent-bg: #E6F1FB;
+      --accent-border: #B5D4F4;
+      --accent-text: #0C447C;
+      --green: #3B6D11;
+      --green-bg: #EAF3DE;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a18;
+        --bg-secondary: #222220;
+        --bg-tertiary: #2a2a27;
+        --text: #f0efed;
+        --text-secondary: #b0afa9;
+        --text-tertiary: #6a6a64;
+        --border: rgba(255,255,255,0.1);
+        --border-strong: rgba(255,255,255,0.18);
+        --accent: #378ADD;
+        --accent-bg: #0c2a42;
+        --accent-border: #185FA5;
+        --accent-text: #85B7EB;
+        --green: #97C459;
+        --green-bg: #1a2e0a;
+      }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      border-bottom: 0.5px solid var(--border);
+      z-index: 100;
+      padding: 1rem 0;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-name {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      padding: 4rem 0 3rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .hero-eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 0.75rem;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .hero-sub {
+      font-size: 15px;
+      color: var(--text-secondary);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .hero-tag {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 0.5px solid var(--border-strong);
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+    }
+
+    /* SECTION */
+    .section {
+      padding: 2.5rem 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 1.25rem;
+    }
+
+    /* PROJECT CARDS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 580px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    .project-card {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      transition: border-color 0.15s;
+    }
+    .project-card:hover { border-color: var(--border-strong); }
+
+    .project-type {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      background: var(--bg-secondary);
+      border: 0.5px solid var(--border);
+      border-radius: 20px;
+      padding: 3px 9px;
+      width: fit-content;
+    }
+
+    .project-title {
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.35;
+    }
+    .project-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      flex: 1;
+    }
+    .tech-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .tech-pill {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: var(--accent-bg);
+      color: var(--accent-text);
+      border: 0.5px solid var(--accent-border);
+    }
+    .project-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.75rem;
+      border-top: 0.5px solid var(--border);
+      margin-top: auto;
+    }
+    .project-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+    .status-dot.amber { background: #BA7517; }
+    .project-media-label {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* WRITING */
+    .writing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 580px) {
+      .writing-grid { grid-template-columns: 1fr; }
+    }
+    .writing-intro {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+    .writing-card {
+      background: var(--bg-secondary);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .writing-card-module {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      font-weight: 500;
+    }
+    .writing-card-title {
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.45;
+      flex: 1;
+    }
+    .writing-card-meta {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    .writing-card-footer {
+      padding-top: 0.75rem;
+      border-top: 0.5px solid var(--border);
+      margin-top: auto;
+    }
+    .request-link {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border: 0.5px solid var(--border-strong);
+      border-radius: 6px;
+      padding: 5px 10px;
+      background: var(--bg);
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .request-link:hover { color: var(--text); border-color: var(--border-strong); }
+
+    /* CERTIFICATIONS */
+    .cert-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .cert-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem 1.1rem;
+      background: var(--bg-secondary);
+      border: 0.5px solid var(--border);
+      border-radius: 10px;
+    }
+    .cert-left {}
+    .cert-name {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .cert-provider {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    .cert-badge {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+    .cert-badge.progress {
+      background: var(--accent-bg);
+      color: var(--accent-text);
+      border: 0.5px solid var(--accent-border);
+    }
+    .cert-badge.planned {
+      background: var(--bg-tertiary);
+      color: var(--text-tertiary);
+      border: 0.5px solid var(--border);
+    }
+
+    /* CONTACT */
+    .contact-box {
+      background: var(--bg-secondary);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .contact-box h3 {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+    .contact-box p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      line-height: 1.6;
+    }
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text);
+      text-decoration: none;
+      background: var(--bg);
+      border: 0.5px solid var(--border-strong);
+      border-radius: 8px;
+      padding: 7px 14px;
+      transition: border-color 0.15s;
+    }
+    .contact-link:hover { border-color: var(--text-tertiary); }
+    .contact-link svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 1.5rem 0;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* SAUCE CHEF EXPANDED CARD */
+    .project-card-full {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.15s;
+      margin-bottom: 1rem;
+    }
+    .project-card-full:hover { border-color: var(--border-strong); }
+    .project-card-full-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.7rem; }
+
+    .video-embed {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .video-embed iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    .photo-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+    .photo-gallery img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 0.5px solid var(--border);
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .photo-gallery img:hover { opacity: 0.85; }
+    .gallery-label {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      margin-bottom: 0.4rem;
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <span class="nav-name">Will Bourne</span>
+        <ul class="nav-links">
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#writing">Writing</a></li>
+          <li><a href="#certifications">Certifications</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+
+      <!-- HERO -->
+      <section class="hero">
+        <p class="hero-eyebrow">Games Development · Programming · Worcester, UK</p>
+        <h1>Will Bourne</h1>
+        <p class="hero-sub">Adaptable Games Development graduate with experience across retail, hospitality, and warehouse operations. Skilled in problem-solving, teamwork, customer service, and C# development, with a proven ability to perform in fast-paced environments. Brings strong communication, reliability, and a proactive approach — consistently taking ownership and stepping up where needed.</p>
+        <div class="hero-tags">
+          <span class="hero-tag">Unity & C#</span>
+          <span class="hero-tag">Arduino</span>
+          <span class="hero-tag">GitHub</span>
+          <span class="hero-tag">Agile</span>
+          <span class="hero-tag">AI-assisted development</span>
+          <span class="hero-tag">English & Danish</span>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section class="section" id="projects">
+        <p class="section-label">Projects</p>
+
+        <!-- SAUCE CHEF — full width -->
+        <div class="project-card-full">
+          <div class="project-card-full-body">
+            <span class="project-type">&#9632;&nbsp; Game + Hardware</span>
+            <h2 class="project-title">Sauce Chef — Physical Controller Game</h2>
+            <p class="project-desc">A hotdog saucing arcade game controlled by a custom-built physical ketchup bottle. Three coloured buttons on the front select the sauce type; a pressure pad on the reverse triggers the dispense. Hotdogs travel across the screen on a conveyor — an invisible trigger zone at the left edge checks whether the correct sauce has been applied, awards points if correct, and immediately ends the run if wrong or missed. Game objects are destroyed after passing the check to prevent off-screen clutter and maintain performance. Built entirely solo — hardware wired from scratch, all game logic written in C#.</p>
+            <div class="tech-row">
+              <span class="tech-pill">Unity</span>
+              <span class="tech-pill">C#</span>
+              <span class="tech-pill">Arduino</span>
+              <span class="tech-pill">Physical UX</span>
+              <span class="tech-pill">Object Pooling</span>
+              <span class="tech-pill">Collision Detection</span>
+            </div>
+
+            <div class="video-embed" style="margin-top:0.5rem;">
+              <iframe
+                src="https://www.youtube.com/embed/jgxp228RsYw"
+                title="Sauce Chef — Gameplay Demo"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
+            </div>
+
+            <div style="margin-top:0.5rem;">
+              <p class="gallery-label">Physical Controller</p>
+              <div class="photo-gallery">
+                <img src="https://raw.githubusercontent.com/willbourne-web/willbourne.github.io/main/Controller_img1__1_.jpeg" alt="Controller front view showing three sauce buttons" onclick="openLightbox(this.src)" />
+                <img src="https://raw.githubusercontent.com/willbourne-web/willbourne.github.io/main/Controller_img2__1_.jpeg" alt="Controller side view" onclick="openLightbox(this.src)" />
+                <img src="https://raw.githubusercontent.com/willbourne-web/willbourne.github.io/main/Controller_img3__1_.jpeg" alt="Controller showing pressure pad on reverse" onclick="openLightbox(this.src)" />
+                <img src="https://raw.githubusercontent.com/willbourne-web/willbourne.github.io/main/Controller_img4__1_.jpeg" alt="Controller overhead view" onclick="openLightbox(this.src)" />
+              </div>
+            </div>
+
+            <div class="project-footer" style="margin-top:0.25rem;">
+              <span class="project-status">
+                <span class="status-dot"></span>
+                Gameplay video above
+              </span>
+              <span class="project-media-label">Solo project &middot; Falmouth University</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- GLOBE SNAKE -->
+        <div class="projects-grid">
+          <div class="project-card">
+            <span class="project-type">&#9632;&nbsp; Game · AI-assisted</span>
+            <h2 class="project-title">Globe Snake — 3D Spherical Snake</h2>
+            <p class="project-desc">A snake-style collect-em-up set on the surface of a small spherical planet. Custom gravity pulls the player to the surface and self-aligns their rotation to the surface normal. Orbs trail behind as a chain, with full collision detection ending the run on self-hit. Built using Unity&#39;s new Input System with six bespoke scripts covering gravity, movement, camera, orb collecting, trail logic, and spawning. Developed in deliberate collaboration with Claude AI — using it as a technical co-pilot to architect and problem-solve systems, demonstrating a modern, intentional approach to AI-assisted development.</p>
+            <div class="tech-row">
+              <span class="tech-pill">Unity</span>
+              <span class="tech-pill">C#</span>
+              <span class="tech-pill">3D Physics</span>
+              <span class="tech-pill">Custom Gravity</span>
+              <span class="tech-pill">New Input System</span>
+              <span class="tech-pill">AI-assisted</span>
+            </div>
+            <div class="video-embed" style="margin-top:0.5rem;">
+              <iframe
+                src="https://www.youtube.com/embed/vEIMOesfQy0"
+                title="Globe Snake — Gameplay Demo"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
+            </div>
+
+            <div class="project-footer">
+              <span class="project-status">
+                <span class="status-dot"></span>
+                Gameplay video above
+              </span>
+              <span class="project-media-label">Build available on request</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- WRITING -->
+      <section class="section" id="writing">
+        <p class="section-label">Academic Writing</p>
+        <p class="writing-intro">Original research and critical writing produced during my degree at Falmouth University. Available on request — contact me directly and I'll share the full documents.</p>
+        <div class="writing-grid">
+
+          <div class="writing-card">
+            <p class="writing-card-module">Research Proposal · COMP 320 · 2023</p>
+            <h3 class="writing-card-title">Analysing the Effects of FoMO on Player Behaviour and Its Correlation to Internet Gaming Disorders</h3>
+            <p class="writing-card-meta">Falmouth University &middot; Grade: 2:2</p>
+            <div class="writing-card-footer">
+              <a href="mailto:webourne123@gmail.com?subject=Request: FoMO Research Proposal&body=Hi Will, I'd like to request a copy of your FoMO research proposal." class="request-link">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+                Request to view
+              </a>
+            </div>
+          </div>
+
+          <div class="writing-card">
+            <p class="writing-card-module">Essay · GAM 310 · 2023</p>
+            <h3 class="writing-card-title">How Has the Free-to-Play Model Impacted the Gaming Industry and What Are Its Ethical Concerns?</h3>
+            <p class="writing-card-meta">Falmouth University &middot; Grade: 2:2</p>
+            <div class="writing-card-footer">
+              <a href="mailto:webourne123@gmail.com?subject=Request: Free-to-Play Ethics Essay&body=Hi Will, I'd like to request a copy of your free-to-play ethics essay." class="request-link">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+                Request to view
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CERTIFICATIONS -->
+      <section class="section" id="certifications">
+        <p class="section-label">Certifications & Professional Development</p>
+        <div class="cert-list">
+
+          <div class="cert-item">
+            <div class="cert-left">
+              <p class="cert-name">Responsible AI Foundations Professional Certificate</p>
+              <p class="cert-provider">All Tech Is Human &middot; LinkedIn Learning</p>
+            </div>
+            <span class="cert-badge progress">In Progress</span>
+          </div>
+
+          <div class="cert-item">
+            <div class="cert-left">
+              <p class="cert-name">Career Essentials in Data Analysis</p>
+              <p class="cert-provider">Microsoft &amp; LinkedIn Learning</p>
+            </div>
+            <span class="cert-badge progress">In Progress</span>
+          </div>
+
+          <div class="cert-item">
+            <div class="cert-left">
+              <p class="cert-name">Data Engineering Foundations Professional Certificate</p>
+              <p class="cert-provider">Astronomer &middot; LinkedIn Learning</p>
+            </div>
+            <span class="cert-badge planned">Planned</span>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="section" id="contact">
+        <p class="section-label">Contact</p>
+        <div class="contact-box">
+          <h3>Get in touch</h3>
+          <p>Open to opportunities in games, tech, and data. Happy to share project files, gameplay videos, or academic work on request.</p>
+          <div class="contact-links">
+            <a href="mailto:webourne123@gmail.com" class="contact-link">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+              webourne123@gmail.com
+            </a>
+            <a href="tel:07542956208" class="contact-link">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6.12 6.12l1.16-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              07542 956 208
+            </a>
+            <a href="https://www.linkedin.com/in/will-bourne-2bb2b2396" target="_blank" rel="noopener" class="contact-link">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span>Will Bourne &mdash; Games Development Portfolio</span>
+        <span>Worcester, UK</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img id="lightbox-img" src="" alt="Controller image enlarged" />
+  </div>
+
+  <script>
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('open');
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
